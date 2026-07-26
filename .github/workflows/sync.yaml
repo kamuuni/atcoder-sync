@@ -1,0 +1,32 @@
+name: AtCoder sync
+
+on:
+  workflow_dispatch:
+
+jobs:
+    sync:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: リポジトリを取得
+              uses: actions/checkout@v4
+
+            - name: Pythonをセットアップ
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.12"
+
+            - name: requestsをインストール
+              run: pip install requests
+
+            - name: git設定
+              run: |
+                git config user.name "github-actions[bot]"
+                git config user.email "github-actions[bot]@users.noreply.github.com"
+
+            - name: 提出履歴を同期
+              run: python sync.py
+
+            - name: 変更をpush
+              run: git push
