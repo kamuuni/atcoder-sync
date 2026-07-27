@@ -2,6 +2,8 @@ name: AtCoder sync
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 15 * * *"
 
 jobs:
     sync:
